@@ -1,9 +1,10 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, fn } = require("sequelize");
 const sequelize = require("../../databases/sequelizeConnection");
 
 const Users = sequelize.define("USUARIO", {
     ID_USUARIO: {
-        type: DataTypes.INTEGER(10),
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true
@@ -21,30 +22,30 @@ const Users = sequelize.define("USUARIO", {
         allowNull: false
     },
     PERFIL: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.TINYINT(1),
         allowNull: false
     },
     SITUACAO: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.TINYINT(1),
         allowNull: false
     },
     TOKEN: {
         type: DataTypes.STRING(50),
         allowNull: false
     },
-    DATAVA_VALIDADE_TOKEN: {
+    DATA_VALIDADE_TOKEN: {
         type: DataTypes.DATE,
         allowNull: false
     },
     DATA_CADASTRO: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATE(fn("NOW")),
         allowNull: false
     },
     CPF: {
         type: DataTypes.STRING(11),
         allowNull: false
     },
-});
+}, { freezeTableName: true });
 
 
 module.exports = Users;
