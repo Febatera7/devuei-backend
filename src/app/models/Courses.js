@@ -20,7 +20,7 @@ const Courses = sequelize.define("CURSO", {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-}, { freezeTableName: true });
+}, { freezeTableName: true, timestamps: false });
 
 
 module.exports = Courses;

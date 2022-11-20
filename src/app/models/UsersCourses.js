@@ -31,7 +31,7 @@ const UsersCourses = sequelize.define("CURSO_USUARIO", {
         onUpdate: 'RESTRICT',
         onDelete: 'RESTRICT',
     },
-}, { freezeTableName: true });
+}, { freezeTableName: true, timestamps: false });
 
 
 module.exports = UsersCourses;

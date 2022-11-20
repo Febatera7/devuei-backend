@@ -34,7 +34,7 @@ const MonthlyPayment = sequelize.define("MENSALIDADE", {
         onUpdate: 'RESTRICT',
         onDelete: 'RESTRICT',
     },
-}, { freezeTableName: true });
+}, { freezeTableName: true, timestamps: false });
 
 
 module.exports = MonthlyPayment;

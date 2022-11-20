@@ -41,7 +41,7 @@ const Comments = sequelize.define("COMENTARIOS", {
         onUpdate: 'RESTRICT',
         onDelete: 'RESTRICT',
     },
-}, { freezeTableName: true });
+}, { freezeTableName: true, timestamps: false });
 
 
 module.exports = Comments;
