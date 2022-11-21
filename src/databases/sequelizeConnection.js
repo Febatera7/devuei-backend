@@ -21,8 +21,8 @@ const sequelizeConnection = new Sequelize(
 
 sequelizeConnection.authenticate().then(() => {
     logger.info(`Sequelize connected to database ${database}`);
-}).catch((err) => {
-    logger.error(`Sequelize not connected to database: ${err}`);
+}).catch((error) => {
+    logger.error(`Sequelize not connected to database: ${error}`);
 });
 
 module.exports = sequelizeConnection;

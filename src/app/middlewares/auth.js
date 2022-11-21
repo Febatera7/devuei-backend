@@ -2,39 +2,31 @@ const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 const authConfig = require('../../config/auth');
 const { Users } = require('../models');
+const logger = require('../utils/logger');
 
 module.exports = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader) {
-    return res.status(401).json({
-      message: 'User not authorized',
-    });
-  }
-
-  const [, token] = authHeader.split(' ');
-
-  if (!token) {
-    return res.status(401).json({
-      message: 'User not authorized',
-    });
-  }
-
   try {
-    const owner = await Users.findOne({ where: { TOKEN: token } });
+    const authHeader = req.headers.authorization;
 
-    if (!owner) {
-      return res.status(401).json({ message: 'User not authorized' });
-    }
+    if (!authHeader) throw new Error("Not authorized");
+
+    const [, token] = authHeader.split(' ');
+
+    if (!token) throw new Error("Not authorized");
+
+    const user = await Users.findOne({ where: { TOKEN: token } });
+
+    if (!user) throw new Error("Not authorized");
+
+    if (new Date(user.DATA_VALIDADE_TOKEN).getTime() < new Date().getTime()) throw new Error("Expired session");
 
     const decoded = await promisify(jwt.verify)(token, authConfig.secret);
 
-    req.user = decoded.ID_USUARIO;
+    req.user = decoded.id;
 
     return next();
-  } catch (err) {
-    return res.status(401).json({
-      message: 'Expired session',
-    });
+  } catch (error) {
+    logger.error(error);
+    res.status(401).send({ error: error.message });
   }
 };

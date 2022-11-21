@@ -3,14 +3,17 @@ const {
     create,
     read,
     update,
-    deleteOne
+    deleteOne,
+    reactivated
 } = require("../controllers/users");
+const authMiddleware = require("../middlewares/auth");
 
 const usersRoutes = Router();
 
 usersRoutes.post("/", create);
-usersRoutes.get("/", read);
-usersRoutes.patch("/", update);
-usersRoutes.delete("/", deleteOne);
+usersRoutes.get("/", authMiddleware, read);
+usersRoutes.patch("/", authMiddleware, update);
+usersRoutes.delete("/", authMiddleware, deleteOne);
+usersRoutes.patch("/:userId", reactivated);
 
 module.exports = usersRoutes;

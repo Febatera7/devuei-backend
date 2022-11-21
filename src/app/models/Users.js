@@ -18,7 +18,7 @@ const Users = sequelize.define("USUARIO", {
         allowNull: false
     },
     SENHA: {
-        type: DataTypes.STRING(80),
+        type: DataTypes.STRING(500),
         allowNull: false
     },
     PERFIL: {
@@ -27,19 +27,21 @@ const Users = sequelize.define("USUARIO", {
     },
     SITUACAO: {
         type: DataTypes.TINYINT(1),
-        allowNull: false
+        allowNull: false,
+        defaultValue: 1
     },
     TOKEN: {
-        type: DataTypes.STRING(50),
-        allowNull: false
+        type: DataTypes.STRING(500),
+        allowNull: true
     },
     DATA_VALIDADE_TOKEN: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
     DATA_CADASTRO: {
-        type: DataTypes.DATE(fn("NOW")),
-        allowNull: false
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: fn("now")
     },
     CPF: {
         type: DataTypes.STRING(11),
