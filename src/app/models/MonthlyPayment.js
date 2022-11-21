@@ -34,6 +34,14 @@ const MonthlyPayment = sequelize.define("MENSALIDADE", {
         onUpdate: 'RESTRICT',
         onDelete: 'RESTRICT',
     },
+    CODIGO_BARRAS: {
+        type: DataTypes.STRING(44),
+        allowNull: false
+    },
+    LINHA_DIGITAVEL: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    }
 }, { freezeTableName: true, timestamps: false });
 
 
